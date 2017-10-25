@@ -1,0 +1,254 @@
+
+package astraeus_v1;
+
+import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import javafx.event.EventHandler;
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
+
+
+/**
+ * @author Kody Miller
+ *
+ * The command_line class is a composed of a GUI element representating a command line similar to the Eclipse Console. It accepts commands
+ * entered as Strings into a TextField, processes what it receives, verifies commands are entered properly, forwards output information to 
+ * the communications class, and stores all entered commands in a data log GUI element.
+ *
+ */
+public class command_line extends Application{
+
+	private Pane cl_pane;
+	private String command;
+	private List<String> commandList = new ArrayList<String>();
+	private String commandListString;
+	
+	public void addCommand(String command){
+
+	}
+
+	public void deleteCommand(String command) {
+
+	}
+
+	public void checkCommand(String command) {
+
+	}
+
+	public void sendToComms(String command){
+
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		cl_pane = new Pane();
+
+		//Pad List with blank entries (prevent out of bounds exceptions)
+		commandList.add("");	//0
+		commandList.add("");	//1
+		commandList.add("");	//2
+		commandList.add("");	//3
+		commandList.add("");	//4
+		commandList.add("");	//5
+		commandList.add("");	//6
+		commandList.add("");	//7
+		commandList.add("");	//8
+		commandList.add("");	//9
+		commandList.add("");	//10
+		commandList.add("");	//11
+		commandList.add("");	//12
+		commandList.add("");	//13
+		commandList.add("");	//14
+		commandList.add("");	//15
+		commandList.add("");	//16
+		commandList.add("");	//17
+		commandList.add("");	//18
+		commandList.add("");	//19
+
+		//Create elements and add to the pane
+		TextField enterCommand = new TextField();
+		enterCommand.setLayoutX(440);
+		enterCommand.setLayoutY(400);
+		enterCommand.setPrefSize(400,12);
+		enterCommand.setStyle("-fx-control-inner-background: BLACK;-fx-text-fill: GREEN;");
+		TextArea commandLog = new TextArea();
+		commandLog.setLayoutX(440);
+		commandLog.setLayoutY(50);
+		commandLog.setPrefSize(400, 350);
+		commandLog.setEditable(false);
+		commandLog.setStyle("-fx-control-inner-background: BLACK;-fx-text-fill: GREEN;");
+		Button returnToMain = new Button();
+		returnToMain.setMaxHeight(50);
+		returnToMain.setMaxWidth(100);
+			
+		//Event Handling for command entered
+		enterCommand.setOnKeyPressed(e -> {
+			if(e.getCode() == KeyCode.ENTER){
+
+				try {
+
+					if(enterCommand.getText().trim().isEmpty() == false){
+
+						command = enterCommand.getText();
+
+						if(command.contains(","))
+						{
+							throw new CommandError();
+						}
+						else if(command.equals("checkSoftware") == true){
+							enterCommand.clear();
+							commandList.add(0,"Current Software Status: Good");
+							commandList.add(1,command);
+						}
+						
+						else if(command.equals("changeSoftware") == true){
+							enterCommand.clear();
+							commandList.add(0,command);
+						}
+						
+						else if(command.equals("checkBatteryCells") == true){
+							enterCommand.clear();
+							commandList.add(0, "Current Battery Status: Good");
+							commandList.add(1,command);
+						}
+						
+						else if(command.equals("checkSolarCells") == true) {
+							enterCommand.clear();
+							commandList.add(0, "Current Solar Cells Status: Good");
+							commandList.add(1,command);
+						}
+						
+						else if(command.equals("resetNavigation") == true) {
+							enterCommand.clear();
+							commandList.add(0, "Navigation for the CubeSat has been reset");
+							commandList.add(1,command);
+						}
+						
+						else if(command.equals("reboot") == true) {
+							enterCommand.clear();
+							commandList.add(0, "CubeSat Rebooting");
+							commandList.add(1,command);
+						}
+						
+						else if(command.equals("changeBatteryCells") == true) {
+							enterCommand.clear();
+							commandList.add(0,command);
+						}
+						
+						else if(command.equals("changeSolarCells") == true) {
+							enterCommand.clear();
+							commandList.add(0,command);
+						}
+						
+						else if(command.equals("changeNavigation") == true) {
+							enterCommand.clear();
+							commandList.add(0,command);
+						}
+						
+						else if(command.equals("changeOrientation") == true) {
+							enterCommand.clear();
+							commandList.add(0,command);
+						}
+						
+						else if(command.equals("changeMagnetometers") == true) {
+							enterCommand.clear();
+							commandList.add(0,command);
+						}
+						
+						else if(command.equals("help")== true) {
+							enterCommand.clear();
+							commandList.add(0, command);
+						}
+						
+						else {
+							enterCommand.clear();
+							throw new CommandError();
+						}
+						
+						commandListString = commandList.get(19)+"\n"+commandList.get(18)+"\n"+commandList.get(17)+
+								"\n"+commandList.get(16)+"\n"+commandList.get(15)+"\n"+commandList.get(14)+
+								"\n"+commandList.get(13)+"\n"+commandList.get(12)+"\n"+commandList.get(11)+
+								"\n"+commandList.get(10)+"\n"+commandList.get(9)+"\n"+commandList.get(8)+"\n"+commandList.get(7)+
+								"\n"+commandList.get(6)+"\n"+commandList.get(5)+"\n"+commandList.get(4)+
+								"\n"+commandList.get(3)+"\n"+commandList.get(2)+"\n"+commandList.get(1)+
+								"\n"+commandList.get(0);
+						
+						commandLog.setText(commandListString);
+						
+						System.out.println(commandList);	//Checking Array Contents are intact
+					
+					}
+					else if(enterCommand.getText().trim().isEmpty() == true){
+						throw new CommandError();
+						
+					}
+
+
+				} catch (CommandError e1) {
+					command = "Unable to accept command check it is a valid command then try again";
+					commandList.add(0,command);
+					commandLog.setText(commandList.get(19)+"\n"+commandList.get(18)+"\n"+commandList.get(17)+
+							"\n"+commandList.get(16)+"\n"+commandList.get(15)+"\n"+commandList.get(14)+
+							"\n"+commandList.get(13)+"\n"+commandList.get(12)+"\n"+commandList.get(11)+
+							"\n"+commandList.get(10)+"\n"+commandList.get(9)+"\n"+commandList.get(8)+"\n"+commandList.get(7)+
+							"\n"+commandList.get(6)+"\n"+commandList.get(5)+"\n"+commandList.get(4)+
+							"\n"+commandList.get(3)+"\n"+commandList.get(2)+"\n"+commandList.get(1)+
+							"\n"+commandList.get(0));
+				}
+			}});
+
+		//
+		commandLog.setText(commandList.get(19)+"\n"+commandList.get(18)+"\n"+commandList.get(17)+
+				"\n"+commandList.get(16)+"\n"+commandList.get(15)+"\n"+commandList.get(14)+
+				"\n"+commandList.get(13)+"\n"+commandList.get(12)+"\n"+commandList.get(11)+
+				"\n"+commandList.get(10)+"\n"+commandList.get(9)+"\n"+commandList.get(8)+"\n"+commandList.get(7)+
+				"\n"+commandList.get(6)+"\n"+commandList.get(5)+"\n"+commandList.get(4)+
+				"\n"+commandList.get(3)+"\n"+commandList.get(2)+"\n"+commandList.get(1)+
+				"\n"+commandList.get(0));
+
+		cl_pane.getChildren().add(enterCommand);
+		cl_pane.getChildren().add(commandLog);
+		cl_pane.setStyle("-fx-background-color: GRAY;");
+
+		//Set GUI to constant resolution (changeable in the future)
+		Scene cl_scene = new Scene(cl_pane,1280,720,Color.GREY);
+		primaryStage.setScene(cl_scene);
+		primaryStage.setMaxWidth(1280);
+		primaryStage.setMinWidth(1280);
+		primaryStage.setMaxHeight(720);
+		primaryStage.setMinHeight(720);
+		primaryStage.setResizable(false);
+		primaryStage.setTitle("Astraeus: Command Line");
+
+		//Show the GUI
+		primaryStage.show();
+
+	}
+
+	//Make sure execution begins	(this will be placed elsewhere but here for testing purposes)
+	public static void main(String[] args)	{	launch(args);	}
+
+}
+class CommandError extends Exception{
+	public CommandError() {}
+}		
