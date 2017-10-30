@@ -5,33 +5,22 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import javafx.event.EventHandler;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
+
 
 
 /**
  * @author Kody Miller
  *
- * The command_line class is a composed of a GUI element representating a command line similar to the Eclipse Console. It accepts commands
+ * The command_line class is a composed of a GUI element representing a command line similar to the Eclipse Console. It accepts commands
  * entered as Strings into a TextField, processes what it receives, verifies commands are entered properly, forwards output information to 
  * the communications class, and stores all entered commands in a data log GUI element.
  *
@@ -43,22 +32,6 @@ public class command_line extends Application{
 	private List<String> commandList = new ArrayList<String>();
 	private String commandListString;
 	
-	public void addCommand(String command){
-
-	}
-
-	public void deleteCommand(String command) {
-
-	}
-
-	public void checkCommand(String command) {
-
-	}
-
-	public void sendToComms(String command){
-
-	}
-
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		cl_pane = new Pane();
@@ -177,7 +150,18 @@ public class command_line extends Application{
 						
 						else if(command.equals("help")== true) {
 							enterCommand.clear();
-							commandList.add(0, command);
+							commandList.add(0,"changeBatteryCells:		Toggle battery cells On/Off\n"
+									+ "changeMagnetometers:		Toggle control magnetometers On/Off\n"
+									+ "changeNavigation:		Adjust current navigation settings (x,y,z)\n"
+									+ "changeOrientation:		Adjust current orientation settings (x,y,z)\n"
+									+ "changeSolarCells:		Toggle solar cells On/Off\n"
+									+ "changeSoftware:		Update software (file)\n"
+									+ "checkBatteryCells:		Gives current battery cell status\n"
+									+ "checkSolarCells:		Gives current solar cell status\n"
+									+ "checkSoftware:		Gives current version of software\n"
+									+ "resetNavigation:		Resets navigation parameters to initial values\n"
+									+ "reboot:		Reboots the CubeSat");
+							commandList.add(1, command);
 						}
 						
 						else {
@@ -248,7 +232,7 @@ public class command_line extends Application{
 	//Make sure execution begins	(this will be placed elsewhere but here for testing purposes)
 	public static void main(String[] args)	{	launch(args);	}
 
-}
+	}
 class CommandError extends Exception{
 	public CommandError() {}
 }		
